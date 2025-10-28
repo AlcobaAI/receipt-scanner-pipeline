@@ -6,11 +6,18 @@ authors = [
     {name = "AlcidesAlcoba",email = "alcobaalcides@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12, <3.15"
 dependencies = [
     "boto3 (>=1.40.60,<2.0.0)",
     "pandas (>=2.3.3,<3.0.0)",
-    "gradio (>=5.49.1,<6.0.0)"
+    "gradio (>=5.49.1,<6.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "transformers (>=4.57.1,<5.0.0)",
+    "torch (>=2.9.0,<3.0.0)",
+    "python-levenshtein (>=0.27.1,<0.28.0)",
+    "nltk (>=3.9.2,<4.0.0)",
+    "protobuf (>=6.33.0,<7.0.0)",
+    "sentencepiece (>=0.2.1,<0.3.0)"
 ]
 
 
