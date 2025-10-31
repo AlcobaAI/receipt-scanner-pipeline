@@ -30,11 +30,11 @@ def run_ocr(filepath: str) -> str:
 
     outputs = model.generate(
         pixel_values.to(device),
-        decoder_input_ids=decoder_input_ids.to(device),
-        max_length=model.decoder.config.max_position_embeddings,
         pad_token_id=processor.tokenizer.pad_token_id,
         eos_token_id=processor.tokenizer.eos_token_id,
         use_cache=True,
+        decoder_input_ids=decoder_input_ids.to(device),
+        max_length=model.decoder.config.max_position_embeddings,
         bad_words_ids=[[processor.tokenizer.unk_token_id]],
         return_dict_in_generate=True,
     )

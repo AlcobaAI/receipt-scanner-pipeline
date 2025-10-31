@@ -1,0 +1,44 @@
+# template.yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  My monthly receipt processing pipeline.
+
+Parameters:
+  BatchSubmitRoleArn:
+    Type: String
+    Description: The ARN of the batch submitter role.
+  ResultFetchRoleArn:
+    Type: String
+    Description: The ARN of the result fetcher role.
+
+Resources:
+  BatchSubmitterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/lambda/submit_batch/
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Timeout: 60
+      Role: !Ref BatchSubmitRoleArn  
+      Events:
+        MonthlyTrigger:
+          Type: Schedule
+          Properties:
+            Description: "Triggers the batch job on the 1st of every month at 8am UTC"
+            Schedule: "cron(0 8 1 * ? *)"
+
+ResultFetcherFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/lambda/fetch_results/
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      Timeout: 120
+      Role: !Ref ResultFetchRoleArn  
+      Events:
+        WeeklyCheckTrigger:
+          Type: Schedule
+          Properties:
+            Description: "Checks for results on the 8th of every month at 8am UTC"
+            Schedule: "cron(0 8 8 * ? *)"

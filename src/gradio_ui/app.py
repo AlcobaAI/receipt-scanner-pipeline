@@ -63,7 +63,7 @@ def event_creator(event_name, event_date_str, files):
     for i, file_obj in enumerate(files):
         filenum = i + 1
         
-        s3_key = f"{formatted_date}-{sanitized_name}-{filenum}.png"
+        s3_key = f"new/{formatted_date}-{sanitized_name}-{filenum}.png"
         
         try:
             s3_client.upload_file(file_obj.name, S3_BUCKET_NAME, s3_key)
